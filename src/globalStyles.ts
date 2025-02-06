@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
   /* Reset CSS */
@@ -12,8 +12,8 @@ const GlobalStyle = createGlobalStyle`
     height: 100%;
     margin: 0;
     padding: 0;
-    background-color: #000000; /* Fundo preto para o body */
-    color: #ffffff; /* Texto branco */
+    background-color: black; 
+    color: white; 
     font-family: Arial, sans-serif;
     line-height: 1.6;
   }
@@ -21,7 +21,7 @@ const GlobalStyle = createGlobalStyle`
   #root {
     min-height: 100vh;
     height: 100%;
-    background-color: #000000; /* Fundo preto para o #root */
+    background-color: black; 
     display: flex;
     flex-direction: column;
   }

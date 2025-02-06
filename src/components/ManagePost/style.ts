@@ -15,6 +15,8 @@ export const Container = styled.div`
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
   text-align: center;
+  overflow-y: auto;
+  max-height: 92vh;
 `;
 
 export const Label = styled.label`
@@ -52,6 +54,21 @@ export const Select = styled.select`
   width: 94%;
   padding: 10px;
   margin: 10px 0;
+  border: 1px solid #800020;
+  border-radius: 4px;
+
+  &:focus {
+    border-color: black;
+    outline: none;
+  }
+`;
+
+export const TextareaDescription = styled.textarea`
+  width: 100%;
+  max-width: 460px;
+  height: 40px;
+  padding: 10px;
+  margin: 12px auto;
   border: 1px solid #800020;
   border-radius: 4px;
 

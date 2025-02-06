@@ -1,18 +1,28 @@
-import React from 'react';
-import { CgMenu } from 'react-icons/cg';
+import React from "react";
+import { CgMenu } from "react-icons/cg";
 import { useNavigate } from "react-router-dom";
 
-
-import { NavbarContainer, NavbarTitle, HamburgerIcon, CloseButton, ActionButtonEdit } from './NavbarStyle';
+import {
+  NavbarContainer,
+  NavbarTitle,
+  HamburgerIcon,
+  CloseButton,
+  ActionButtonEdit,
+} from "./NavbarStyle";
 
 interface NavbarProps {
   title: string;
   sidebarOpen: boolean;
   toggleSidebar: () => void;
+  hideCreateButton?: boolean;
 }
 
-const Navbar: React.FC<NavbarProps> = ({ title, sidebarOpen, toggleSidebar }) => {
-
+const Navbar: React.FC<NavbarProps> = ({
+  title,
+  sidebarOpen,
+  toggleSidebar,
+  hideCreateButton,
+}) => {
   const navigate = useNavigate();
   const handleCreatePost = () => {
     navigate("/manage", { state: { action: "create" } });
@@ -28,9 +38,11 @@ const Navbar: React.FC<NavbarProps> = ({ title, sidebarOpen, toggleSidebar }) =>
         </HamburgerIcon>
       )}
       <NavbarTitle>{title}</NavbarTitle>
-      <ActionButtonEdit onClick={() => handleCreatePost()}>
-        Criar
-      </ActionButtonEdit>
+      {!hideCreateButton && (
+        <ActionButtonEdit onClick={() => handleCreatePost()}>
+          Criar
+        </ActionButtonEdit>
+      )}
     </NavbarContainer>
   );
 };

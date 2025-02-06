@@ -7,6 +7,7 @@ import {
   MainText,
   Divider,
 } from "./style";
+import Modal from "../ModalQuiz";
 
 const HomeComponent = () => {
   const navigate = useNavigate();
@@ -15,7 +16,7 @@ const HomeComponent = () => {
     navigate("/login");
   };
 
-  const goToPostList = () => {
+  const goToLoginStudents = () => {
     navigate("/posts");
   };
 
@@ -28,7 +29,7 @@ const HomeComponent = () => {
           <ButtonText>Acesse o portal de professores e funcionários</ButtonText>
         </StyledButton>
 
-        <StyledButton onClick={goToPostList}>
+        <StyledButton onClick={goToLoginStudents}>
           <MainText>ALUNOS</MainText>
           <Divider />
           <ButtonText>Acesse o portal de estudantes</ButtonText>

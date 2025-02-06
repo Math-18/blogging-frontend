@@ -18,16 +18,19 @@ import {
   ModalBody,
   CloseButton,
   Spinner,
+  TextareaDescription,
 } from "./style";
 
 interface LocationState {
   action: string;
+  postId?: number;
 }
 
 const ManagePostComponent = () => {
   const location = useLocation();
   const state = location.state as LocationState;
   const action = state?.action || "default";
+  const postId = state?.postId || null;
 
   const [title, setTitle] = useState("");
   const [descricao, setDescricao] = useState("");
@@ -43,9 +46,6 @@ const ManagePostComponent = () => {
   const [selectPost, setSelectPost] = useState(false);
 
   const [isLoading, setIsLoading] = useState(false);
-
-  // Vou receber da tela do mateus, quando clicar na postagem
-  const id: number = 1;
 
   const themes = [
     "Matemática",
@@ -78,9 +78,9 @@ const ManagePostComponent = () => {
     }
 
     const returnSelectPost = async () => {
-      if (action === "edit") {
+      if (action === "edit" && postId) {
         try {
-          const response = await api.get(`/posts/${id}`);
+          const response = await api.get(`/posts/${postId}`);
           const post = response.data.data;
           setTitle(post.title);
           setDescricao(post.description);
@@ -95,7 +95,7 @@ const ManagePostComponent = () => {
     };
 
     returnSelectPost();
-  }, [title, descricao, autor, theme, id, action]);
+  }, [title, descricao, autor, theme, postId, action]);
 
   const createPost = async () => {
     setIsLoading(true);
@@ -129,7 +129,7 @@ const ManagePostComponent = () => {
         author: autor,
         subject: theme,
       };
-      const response = await api.put(`/posts/admin/update`, body);
+      const response = await api.put(`/posts/admin/update/${postId}`, body);
 
       setEditSuccess(true);
     } catch (error) {
@@ -148,7 +148,7 @@ const ManagePostComponent = () => {
       setAutor("");
       setTheme("");
     }
-    navigate("/login");
+    navigate("/posts/admin");
   };
 
   const handleSubmit = async (e: any) => {
@@ -162,7 +162,7 @@ const ManagePostComponent = () => {
       setConteudo("");
       setAutor("");
       setTheme("");
-      navigate("/login"); //Alterar para navegar para a tela do matheus
+      navigate("/posts/admin");
     } catch (error) {
       console.log("Erro ao criar a postagem:", error);
       setShowCreateModal(true);
@@ -181,7 +181,7 @@ const ManagePostComponent = () => {
       setConteudo("");
       setAutor("");
       setTheme("");
-      navigate("/login"); //Alterar para navegar para a tela do matheus
+      navigate("/posts/admin");
     } catch (error) {
       console.log("Erro ao editar a postagem", error);
       setShowEditModal(true);
@@ -219,13 +219,13 @@ const ManagePostComponent = () => {
 
               {/* DESCRIÇÃO */}
               <Label htmlFor="title">Descrição</Label>
-              <Textarea
+              <TextareaDescription
                 placeholder="Digite a descrição da postagem"
                 value={descricao}
                 onChange={(e) => setDescricao(e.target.value)}
               />
 
-              {/* DESCRIÇÃO */}
+              {/* CONTEUDO */}
               <Label htmlFor="title">Conteúdo</Label>
               <Textarea
                 placeholder="Digite o conteúdo da postagem"
